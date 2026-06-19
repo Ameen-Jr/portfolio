@@ -126,9 +126,24 @@ export default function NavBar() {
 
         <button
           onClick={() => setOpen((v) => !v)}
-          className="pill-btn"
           aria-label="Toggle menu"
           aria-expanded={open}
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "8px",
+            padding: "14px 28px",
+            borderRadius: "999px",
+            border: open ? "1px solid #222" : "1px solid var(--border)",
+            fontFamily: "var(--font-space)",
+            fontSize: "0.75rem",
+            letterSpacing: "0.12em",
+            textTransform: "uppercase",
+            color: open ? "#111" : "var(--text-primary)",
+            background: "transparent",
+            cursor: "none",
+            transition: "all 0.25s ease",
+          }}
         >
           <span>{open ? "CLOSE" : "MENU"}</span>
           <span className="status-dot" />

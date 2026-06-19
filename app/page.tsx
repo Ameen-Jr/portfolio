@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import CustomCursor from "@/components/CustomCursor";
 import NavBar from "@/components/NavBar";
 import HeroSection from "@/components/HeroSection";
@@ -6,33 +9,35 @@ import TriplePillar from "@/components/TriplePillar";
 import FeaturedWork from "@/components/FeaturedWork";
 import ContactSection from "@/components/ContactSection";
 import SmoothScrollProvider from "@/components/SmoothScrollProvider";
+import LoadingScreen from "@/components/LoadingScreen";
 
 export default function Home() {
+  const [loaded, setLoaded] = useState(false);
+
   return (
     <SmoothScrollProvider>
-      {/* Custom cursor — renders portal-style on top of everything */}
       <CustomCursor />
 
-      {/* Navigation */}
-      <NavBar />
+      {/* Preloader — unmounts itself after animation */}
+      <LoadingScreen onComplete={() => setLoaded(true)} />
 
-      {/* Main content */}
-      <main>
-        {/* 01 — Hero */}
-        <HeroSection />
-
-        {/* 02 — Infinite marquee */}
-        <MarqueeStrip />
-
-        {/* 03 — Triple pillar disciplines */}
-        <TriplePillar />
-
-        {/* 04 — Pinned featured work */}
-        <FeaturedWork />
-
-        {/* 05 — Contact / Footer */}
-        <ContactSection />
-      </main>
+      {/* Main site fades in after preloader exits */}
+      <div
+        style={{
+          opacity: loaded ? 1 : 0,
+          transition: "opacity 0.6s ease 0.1s",
+          visibility: loaded ? "visible" : "hidden",
+        }}
+      >
+        <NavBar />
+        <main>
+          <HeroSection />
+          <MarqueeStrip />
+          <TriplePillar />
+          <FeaturedWork />
+          <ContactSection />
+        </main>
+      </div>
     </SmoothScrollProvider>
   );
 }
