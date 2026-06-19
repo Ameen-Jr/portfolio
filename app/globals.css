@@ -47,18 +47,18 @@ body {
 }
 
 /* ─── CUSTOM CURSOR ──────────────────────────────────────────────────────── */
+/* mix-blend-mode: difference → white cursor appears DARK on light bg, LIGHT on dark bg */
 .cursor-dot {
   position: fixed;
   top: 0; left: 0;
   width: 8px; height: 8px;
-  background: var(--text-primary);
+  background: #ffffff;
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
   transform: translate(-50%, -50%);
-  transition: width 0.2s var(--ease-out-expo),
-              height 0.2s var(--ease-out-expo),
-              background 0.2s ease;
+  mix-blend-mode: difference;
+  transition: width 0.2s var(--ease-out-expo), height 0.2s var(--ease-out-expo);
   will-change: transform;
 }
 
@@ -66,26 +66,19 @@ body {
   position: fixed;
   top: 0; left: 0;
   width: 36px; height: 36px;
-  border: 1px solid rgba(240,240,240,0.35);
+  border: 1.5px solid #ffffff;
   border-radius: 50%;
   pointer-events: none;
   z-index: 9998;
   transform: translate(-50%, -50%);
-  transition: width 0.35s var(--ease-out-expo),
-              height 0.35s var(--ease-out-expo),
-              border-color 0.2s ease;
+  mix-blend-mode: difference;
+  transition: width 0.35s var(--ease-out-expo), height 0.35s var(--ease-out-expo);
   will-change: transform;
 }
 
-body.cursor-hover .cursor-dot {
-  width: 12px; height: 12px;
-  background: var(--accent);
-}
-
-body.cursor-hover .cursor-ring {
-  width: 56px; height: 56px;
-  border-color: var(--accent);
-}
+/* On hover over interactive elements — only size changes; color inversion is automatic */
+body.cursor-hover .cursor-dot  { width: 14px; height: 14px; }
+body.cursor-hover .cursor-ring { width: 60px; height: 60px; }
 
 /* ─── MARQUEE ────────────────────────────────────────────────────────────── */
 @keyframes marquee-scroll {
@@ -93,10 +86,20 @@ body.cursor-hover .cursor-ring {
   to   { transform: translateX(-50%); }
 }
 
+/* Hero / strip marquee — 30s */
 .marquee-track {
   display: flex;
   width: max-content;
   animation: marquee-scroll 30s linear infinite;
+  will-change: transform;
+}
+
+/* Nav hover panel marquee — faster 11s */
+.menu-marquee-track {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  animation: marquee-scroll 11s linear infinite;
   will-change: transform;
 }
 
