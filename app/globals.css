@@ -1,0 +1,210 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── DESIGN TOKENS ─────────────────────────────────────────────────────── */
+:root {
+  --font-bebas: 'Bebas Neue', Impact, sans-serif;
+  --font-inter: 'Inter', system-ui, sans-serif;
+  --font-space: 'Space Mono', monospace;
+
+  --canvas: #0f0f0f;
+  --surface: #161616;
+  --border: #2a2a2a;
+  --accent: #7ca48d;
+  --accent-dim: #3d6b58;
+  --text-primary: #f0f0f0;
+  --text-muted: #6b6b6b;
+  --text-faint: #3a3a3a;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+/* ─── RESET ──────────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: auto; /* Lenis handles smooth scroll */
+  background-color: var(--canvas);
+  color: var(--text-primary);
+}
+
+body {
+  font-family: var(--font-inter);
+  background-color: var(--canvas);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  cursor: none; /* Custom cursor active */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── CUSTOM CURSOR ──────────────────────────────────────────────────────── */
+.cursor-dot {
+  position: fixed;
+  top: 0; left: 0;
+  width: 8px; height: 8px;
+  background: var(--text-primary);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s var(--ease-out-expo),
+              height 0.2s var(--ease-out-expo),
+              background 0.2s ease;
+  will-change: transform;
+}
+
+.cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  width: 36px; height: 36px;
+  border: 1px solid rgba(240,240,240,0.35);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 0.35s var(--ease-out-expo),
+              height 0.35s var(--ease-out-expo),
+              border-color 0.2s ease;
+  will-change: transform;
+}
+
+body.cursor-hover .cursor-dot {
+  width: 12px; height: 12px;
+  background: var(--accent);
+}
+
+body.cursor-hover .cursor-ring {
+  width: 56px; height: 56px;
+  border-color: var(--accent);
+}
+
+/* ─── MARQUEE ────────────────────────────────────────────────────────────── */
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 30s linear infinite;
+  will-change: transform;
+}
+
+/* ─── WAVY BACKGROUND ────────────────────────────────────────────────────── */
+@keyframes wave-drift {
+  0%   { transform: translateX(0) translateY(0) scale(1.02); }
+  50%  { transform: translateX(-15px) translateY(10px) scale(1.04); }
+  100% { transform: translateX(0) translateY(0) scale(1.02); }
+}
+
+.wave-bg {
+  animation: wave-drift 12s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* ─── TERMINAL CURSOR ────────────────────────────────────────────────────── */
+@keyframes terminal-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+.cursor-blink {
+  animation: terminal-blink 1s step-end infinite;
+  display: inline-block;
+  width: 10px;
+  height: 1.1em;
+  background: var(--text-primary);
+  vertical-align: text-bottom;
+  margin-left: 2px;
+}
+
+/* ─── SCROLLBAR ──────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--canvas); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+/* ─── SELECTION ──────────────────────────────────────────────────────────── */
+::selection {
+  background: var(--accent);
+  color: var(--canvas);
+}
+
+/* ─── REDUCED MOTION OVERRIDE ───────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none !important; }
+  .wave-bg { animation: none !important; }
+  .cursor-blink { animation: none !important; opacity: 1; }
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ─── UTILITIES ──────────────────────────────────────────────────────────── */
+.section-rule {
+  border-top: 1px solid var(--border);
+}
+
+.hover-underline {
+  position: relative;
+  display: inline-block;
+}
+.hover-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0;
+  width: 0; height: 1px;
+  background: var(--text-primary);
+  transition: width 0.4s var(--ease-out-expo);
+}
+.hover-underline:hover::after { width: 100%; }
+
+.pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  font-family: var(--font-space);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  background: transparent;
+  cursor: none;
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+.pill-btn:hover {
+  background: var(--text-primary);
+  color: var(--canvas);
+  border-color: var(--text-primary);
+}
+
+/* Status dot */
+.status-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 8px #4ade80;
+  flex-shrink: 0;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 8px #4ade80; }
+  50%       { box-shadow: 0 0 18px #4ade80; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .status-dot { animation: none; }
+}
