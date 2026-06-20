@@ -31,7 +31,7 @@ export default function Home() {
       >
         <NavBar />
         <main>
-          <HeroSection />
+          <HeroSection ready={loaded} />
           <MarqueeStrip />
           <TriplePillar />
           <FeaturedWork />
