@@ -196,13 +196,13 @@ export default function FeaturedWork() {
               }}
             />
 
-            {/* Top: project number */}
+            {/* 1. Top: project number & Overview Title */}
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="relative z-10"
+              className="relative z-10 shrink-0"
             >
               <span
                 style={{ fontFamily: "var(--font-space)" }}
@@ -210,28 +210,68 @@ export default function FeaturedWork() {
               >
                 Project 01 / 2025
               </span>
+
+              <motion.h4
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                viewport={{ once: true }}
+                style={{ fontFamily: "var(--font-space)" }}
+                className="mt-6 md:mt-8 text-[10px] tracking-[0.2em] text-[#7ca48d] uppercase"
+              >
+                Project Overview
+              </motion.h4>
             </motion.div>
 
-            {/* Center: Project Logo & Slogan */}
+            {/* 2. Center: Project Logo */}
             <motion.div
               style={{ opacity: logoOpacity, scale: logoScale, y: logoY }}
-              className="relative z-10 flex flex-col items-center justify-center flex-1 w-full my-8"
+              className="relative z-10 flex flex-col items-center justify-center flex-1 w-full my-6 min-h-0"
             >
-              <div className="relative w-[90%] max-w-[450px] aspect-square flex items-center justify-center group mx-auto">
+              <div className="relative w-[90%] max-w-[360px] aspect-square flex items-center justify-center group mx-auto shrink">
                 {/* Subtle dynamic glow that appears on hover */}
                 <div className="absolute inset-0 bg-[#4281ff]/20 blur-[70px] rounded-full mix-blend-screen opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
                 <div className="absolute inset-0 bg-[#d942ff]/20 blur-[70px] rounded-full mix-blend-screen opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100 pointer-events-none translate-x-10" />
-                
+
                 <motion.img
                   src="/tezaura-logo.png"
                   alt="Tezaura - Refining Academic Logistics"
-                  className="w-full h-auto object-contain drop-shadow-[0_0_30px_rgba(255,255,255,0.05)] transition-transform duration-300"
+                  className="w-full h-full object-contain drop-shadow-[0_0_30px_rgba(255,255,255,0.05)] transition-transform duration-300"
                   whileHover={{ scale: 1.05 }}
                 />
               </div>
+            </motion.div>
+
+            {/* 3. Bottom: Overview Content, Tags, Type & Status */}
+            <div className="relative z-10 shrink-0 flex flex-col">
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                viewport={{ once: true }}
+                className="w-full md:w-[95%] mb-6 md:mb-8"
+              >
+                <div
+                  style={{ fontFamily: "var(--font-inter)" }}
+                  className="space-y-3 text-[12px] leading-relaxed text-[#6b6b6b]"
+                >
+                  <p>
+                    <span className="text-[#f0f0f0] font-medium tracking-wide">Tezaura</span> is a production-deployed, enterprise-grade Desktop ERP application custom-engineered to fully digitalize the administrative operations of a private educational institution.
+                  </p>
+                  <p>
+                    Built as a single-device local client-server ecosystem, it manages the entire student lifecycle, automated multi-session attendance logs, complex mid-year financial scheduling, and local automated fallback cloud indexing—all packaged into a lightweight, native desktop wrapper.
+                  </p>
+                </div>
+              </motion.div>
 
               {/* Tech tags */}
-              <div className="flex flex-wrap items-center justify-center gap-2 mt-8">
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.5 }}
+                viewport={{ once: true }}
+                className="flex flex-wrap items-center gap-2 mb-8 md:mb-10"
+              >
                 {["React 19", "FastAPI", "Tauri 2", "Python", "Rust", "SQLite"].map(
                   (tag) => (
                     <span
@@ -243,46 +283,46 @@ export default function FeaturedWork() {
                     </span>
                   )
                 )}
-              </div>
-            </motion.div>
+              </motion.div>
 
-            {/* Bottom row */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 0.7, delay: 0.5 }}
-              viewport={{ once: true }}
-              className="relative z-10 flex items-end justify-between"
-            >
-              <div>
-                <p
-                  style={{ fontFamily: "var(--font-space)" }}
-                  className="text-[9px] tracking-[0.2em] text-[#3a3a3a] uppercase"
-                >
-                  Type
-                </p>
-                <p
-                  style={{ fontFamily: "var(--font-space)" }}
-                  className="text-[11px] text-[#888] mt-1"
-                >
-                  Desktop ERP
-                </p>
-              </div>
-              <div className="text-right">
-                <p
-                  style={{ fontFamily: "var(--font-space)" }}
-                  className="text-[9px] tracking-[0.2em] text-[#3a3a3a] uppercase"
-                >
-                  Status
-                </p>
-                <p
-                  style={{ fontFamily: "var(--font-space)" }}
-                  className="text-[11px] text-[#7ca48d] mt-1"
-                >
-                  Production
-                </p>
-              </div>
-            </motion.div>
+              {/* Bottom row (Type & Status) */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.7, delay: 0.6 }}
+                viewport={{ once: true }}
+                className="flex items-end justify-between"
+              >
+                <div>
+                  <p
+                    style={{ fontFamily: "var(--font-space)" }}
+                    className="text-[9px] tracking-[0.2em] text-[#3a3a3a] uppercase"
+                  >
+                    Type
+                  </p>
+                  <p
+                    style={{ fontFamily: "var(--font-space)" }}
+                    className="text-[11px] text-[#888] mt-1"
+                  >
+                    Desktop ERP
+                  </p>
+                </div>
+                <div className="text-right">
+                  <p
+                    style={{ fontFamily: "var(--font-space)" }}
+                    className="text-[9px] tracking-[0.2em] text-[#3a3a3a] uppercase"
+                  >
+                    Status
+                  </p>
+                  <p
+                    style={{ fontFamily: "var(--font-space)" }}
+                    className="text-[11px] text-[#7ca48d] mt-1"
+                  >
+                    Live / Deployed
+                  </p>
+                </div>
+              </motion.div>
+            </div>
           </div>
         </div>
       </motion.div>
