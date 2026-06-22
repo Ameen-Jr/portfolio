@@ -265,7 +265,7 @@ export default function FeaturedWork() {
               </motion.div>
 
               {/* Tech tags */}
-              <motion.div
+              <motion.div 
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.5 }}
@@ -277,7 +277,7 @@ export default function FeaturedWork() {
                     <span
                       key={tag}
                       style={{ fontFamily: "var(--font-space)" }}
-                      className="text-[9px] tracking-widest uppercase border border-[#2a2a2a] text-[#6b6b6b] px-3 py-1 rounded-full"
+                      className="text-[9px] tracking-widest uppercase border border-[#2a2a2a] text-[#6b6b6b] px-3 py-1 rounded-full transition-all duration-300 hover:text-white hover:bg-white/5 hover:backdrop-blur-md hover:border-[#00c2ff]/30 hover:translate-x-2 hover:scale-[1.02] hover:shadow-[0_10px_20px_rgba(0,0,0,0.2)] cursor-pointer"
                     >
                       {tag}
                     </span>
