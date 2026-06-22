@@ -86,6 +86,16 @@ export default function FeaturedWork() {
     offset: ["start start", "end end"],
   });
 
+  /* Animation tied to scrolling into the section */
+  const { scrollYProgress: enterProgress } = useScroll({
+    target: containerRef,
+    offset: ["start 80%", "start 20%"],
+  });
+
+  const logoScale = useTransform(enterProgress, [0, 1], [0.6, 1]);
+  const logoOpacity = useTransform(enterProgress, [0, 1], [0, 1]);
+  const logoY = useTransform(enterProgress, [0, 1], [100, 0]);
+
   /* Subtle background colour shift */
   const bgColor = useTransform(
     scrollYProgress,
@@ -103,7 +113,7 @@ export default function FeaturedWork() {
       {/* Sticky inner */}
       <motion.div
         style={{ backgroundColor: bgColor }}
-        className="sticky top-0 h-screen w-full flex flex-col border-t border-[#2a2a2a] overflow-hidden"
+        className="sticky top-0 h-[100dvh] w-full flex flex-col border-t border-[#2a2a2a] overflow-hidden"
       >
         {/* Section header */}
         <div className="w-full border-b border-[#2a2a2a] px-6 md:px-10 py-5 flex items-center justify-between shrink-0">
@@ -125,7 +135,7 @@ export default function FeaturedWork() {
         <div className="flex-1 grid grid-cols-1 md:grid-cols-[1fr_1fr] divide-y md:divide-y-0 md:divide-x divide-[#2a2a2a] overflow-hidden">
 
           {/* ── LEFT: technical callouts ── */}
-          <div className="flex flex-col justify-between p-6 md:p-10 overflow-hidden">
+          <div className="flex flex-col justify-between p-6 pb-12 md:p-10 md:pb-16 overflow-hidden">
             <div>
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
@@ -173,7 +183,7 @@ export default function FeaturedWork() {
           </div>
 
           {/* ── RIGHT: project identity panel ── */}
-          <div className="relative flex flex-col justify-between p-6 md:p-10 bg-[#111] overflow-hidden">
+          <div className="relative flex flex-col justify-between p-6 pb-12 md:p-10 md:pb-16 bg-[#111] overflow-hidden">
 
             {/* Decorative grid lines */}
             <div
@@ -202,29 +212,26 @@ export default function FeaturedWork() {
               </span>
             </motion.div>
 
-            {/* Center: giant project name */}
+            {/* Center: Project Logo & Slogan */}
             <motion.div
-              initial={{ opacity: 0, y: 60 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-              viewport={{ once: true }}
-              className="relative z-10 text-center md:text-left"
+              style={{ opacity: logoOpacity, scale: logoScale, y: logoY }}
+              className="relative z-10 flex flex-col items-center justify-center flex-1 w-full my-8"
             >
-              <h2
-                style={{ fontFamily: "var(--font-bebas)" }}
-                className="text-[clamp(4rem,10vw,9rem)] leading-[0.85] tracking-tight text-[#f0f0f0]"
-              >
-                TEZAURA
-              </h2>
-              <p
-                style={{ fontFamily: "var(--font-space)" }}
-                className="text-[#7ca48d] text-[12px] tracking-widest uppercase mt-3"
-              >
-                Refining Academic Logistics
-              </p>
+              <div className="relative w-[90%] max-w-[450px] aspect-square flex items-center justify-center group mx-auto">
+                {/* Subtle dynamic glow that appears on hover */}
+                <div className="absolute inset-0 bg-[#4281ff]/20 blur-[70px] rounded-full mix-blend-screen opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                <div className="absolute inset-0 bg-[#d942ff]/20 blur-[70px] rounded-full mix-blend-screen opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100 pointer-events-none translate-x-10" />
+                
+                <motion.img
+                  src="/tezaura-logo.png"
+                  alt="Tezaura - Refining Academic Logistics"
+                  className="w-full h-auto object-contain drop-shadow-[0_0_30px_rgba(255,255,255,0.05)] transition-transform duration-300"
+                  whileHover={{ scale: 1.05 }}
+                />
+              </div>
 
               {/* Tech tags */}
-              <div className="flex flex-wrap gap-2 mt-6">
+              <div className="flex flex-wrap items-center justify-center gap-2 mt-8">
                 {["React 19", "FastAPI", "Tauri 2", "Python", "Rust", "SQLite"].map(
                   (tag) => (
                     <span
