@@ -107,7 +107,10 @@ const stack = [
 /* ── 3D Carousel ── */
 function ScreenshotCarousel() {
   const trackRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const activeIndexRef = useRef(0);          // ← always-current ref
+  const isScrollingRef = useRef(false);
   const CARD_W = 720;
   const GAP = 24;
 
@@ -115,26 +118,62 @@ function ScreenshotCarousel() {
     const track = trackRef.current;
     if (!track) return;
     const center = track.scrollLeft + track.clientWidth / 2;
-    const idx = Math.round((center - CARD_W / 2) / (CARD_W + GAP));
-    setActiveIndex(Math.max(0, Math.min(screenshots.length - 1, idx)));
+    const idx = Math.max(0, Math.min(
+      screenshots.length - 1,
+      Math.round((center - CARD_W / 2) / (CARD_W + GAP))
+    ));
+    activeIndexRef.current = idx;            // ← keep ref in sync
+    setActiveIndex(idx);
   }, []);
 
-  const scrollTo = (idx: number) => {
+  const scrollTo = useCallback((idx: number) => {
     const track = trackRef.current;
     if (!track) return;
     const target = idx * (CARD_W + GAP) - (track.clientWidth - CARD_W) / 2;
     track.scrollTo({ left: Math.max(0, target), behavior: "smooth" });
-  };
+  }, []);
 
   useEffect(() => {
     const track = trackRef.current;
-    if (!track) return;
-    // Initialise scroll position to first card centered
-    const initial = 0 - (track.clientWidth - CARD_W) / 2;
-    track.scrollLeft = Math.max(0, initial);
+    const section = sectionRef.current;
+    if (!track || !section) return;
+
+    // Init scroll position to first card centered
+    track.scrollLeft = Math.max(0, -(track.clientWidth - CARD_W) / 2);
     track.addEventListener("scroll", handleScroll, { passive: true });
-    return () => track.removeEventListener("scroll", handleScroll);
-  }, [handleScroll]);
+
+    const onWheel = (e: WheelEvent) => {
+      const track = trackRef.current;
+      if (!track) return;
+
+      const atStart = track.scrollLeft <= 2;
+      const atEnd = track.scrollLeft >= track.scrollWidth - track.clientWidth - 2;
+
+      // Release at edges so page vertical scroll continues
+      if ((atStart && e.deltaY < 0) || (atEnd && e.deltaY > 0)) return;
+
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (isScrollingRef.current) return;
+      isScrollingRef.current = true;
+
+      const direction = e.deltaY > 0 ? 1 : -1;
+      // ← Read from ref, not stale closure state
+      const next = Math.max(0, Math.min(screenshots.length - 1, activeIndexRef.current + direction));
+      activeIndexRef.current = next;         // ← update immediately
+      scrollTo(next);
+
+      setTimeout(() => { isScrollingRef.current = false; }, 550);
+    };
+
+    section.addEventListener("wheel", onWheel, { passive: false });
+
+    return () => {
+      track.removeEventListener("scroll", handleScroll);
+      section.removeEventListener("wheel", onWheel);
+    };
+  }, [handleScroll, scrollTo]);
 
   const getTransform = (i: number) => {
     const offset = i - activeIndex;
@@ -146,7 +185,7 @@ function ScreenshotCarousel() {
   };
 
   return (
-    <div className="w-full" style={{ perspective: "1200px" }}>
+    <div ref={sectionRef} className="w-full" style={{ perspective: "1200px" }}>
       {/* Track */}
       <div
         ref={trackRef}
@@ -220,11 +259,11 @@ function ScreenshotCarousel() {
                   </span>
                 </div>
                 {/* Screenshot */}
-                <div style={{ aspectRatio: "16/10", background: "#0a0a0a", position: "relative" }}>
+                <div style={{ aspectRatio: "1920/1020", background: "#0a0a0a" }}>
                   <img
                     src={`/screenshots/page-${s.page}.png`}
                     alt={s.label}
-                    style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                    style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }}
                     loading="lazy"
                     draggable={false}
                   />
