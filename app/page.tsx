@@ -10,13 +10,18 @@ import FeaturedWork from "@/components/FeaturedWork";
 import ContactSection from "@/components/ContactSection";
 import SmoothScrollProvider from "@/components/SmoothScrollProvider";
 import LoadingScreen from "@/components/LoadingScreen";
+import TezauraCaseStudy from "@/components/TezauraCaseStudy";
 
 export default function Home() {
   const [loaded, setLoaded] = useState(false);
+  const [showCaseStudy, setShowCaseStudy] = useState(false);
 
   return (
     <SmoothScrollProvider>
       <CustomCursor />
+      {showCaseStudy && (
+        <TezauraCaseStudy onClose={() => setShowCaseStudy(false)} />
+      )}
 
       {/* Preloader — unmounts itself after animation */}
       <LoadingScreen onComplete={() => setLoaded(true)} />
@@ -34,7 +39,7 @@ export default function Home() {
           <HeroSection ready={loaded} />
           <MarqueeStrip />
           <TriplePillar />
-          <FeaturedWork />
+          <FeaturedWork onCaseStudyOpen={() => setShowCaseStudy(true)} />
           <ContactSection />
         </main>
       </div>

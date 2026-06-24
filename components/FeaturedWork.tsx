@@ -78,7 +78,7 @@ function CalloutRow({
   );
 }
 
-export default function FeaturedWork() {
+export default function FeaturedWork({ onCaseStudyOpen }: { onCaseStudyOpen: () => void }) {
   /* Container is 400vh tall; inner sticky element is 100vh */
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -171,14 +171,15 @@ export default function FeaturedWork() {
               viewport={{ once: true }}
               className="mt-6"
             >
-              <a
-                href="#"
+
+              <button
+                onClick={onCaseStudyOpen}
                 className="hover-underline text-[11px] tracking-widest uppercase text-[#6b6b6b] hover:text-[#f0f0f0] transition-colors"
-                style={{ fontFamily: "var(--font-space)" }}
+                style={{ fontFamily: "var(--font-space)", background: "none", border: "none", padding: 0, cursor: "none" }}
                 data-cursor-hover
               >
                 View Full Case Study ↗
-              </a>
+              </button>
             </motion.div>
           </div>
 
@@ -265,7 +266,7 @@ export default function FeaturedWork() {
               </motion.div>
 
               {/* Tech tags */}
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.5 }}
