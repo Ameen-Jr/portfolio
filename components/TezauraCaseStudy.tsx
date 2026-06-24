@@ -117,10 +117,9 @@ function ScreenshotCarousel() {
   const handleScroll = useCallback(() => {
     const track = trackRef.current;
     if (!track) return;
-    const center = track.scrollLeft + track.clientWidth / 2;
     const idx = Math.max(0, Math.min(
       screenshots.length - 1,
-      Math.round((center - CARD_W / 2) / (CARD_W + GAP))
+      Math.round(track.scrollLeft / (CARD_W + GAP))
     ));
     activeIndexRef.current = idx;            // ← keep ref in sync
     setActiveIndex(idx);
@@ -129,8 +128,8 @@ function ScreenshotCarousel() {
   const scrollTo = useCallback((idx: number) => {
     const track = trackRef.current;
     if (!track) return;
-    const target = idx * (CARD_W + GAP) - (track.clientWidth - CARD_W) / 2;
-    track.scrollTo({ left: Math.max(0, target), behavior: "smooth" });
+    const target = idx * (CARD_W + GAP);
+    track.scrollTo({ left: target, behavior: "smooth" });
   }, []);
 
   useEffect(() => {
@@ -139,7 +138,7 @@ function ScreenshotCarousel() {
     if (!track || !section) return;
 
     // Init scroll position to first card centered
-    track.scrollLeft = Math.max(0, -(track.clientWidth - CARD_W) / 2);
+    track.scrollLeft = 0;
     track.addEventListener("scroll", handleScroll, { passive: true });
 
     const onWheel = (e: WheelEvent) => {
