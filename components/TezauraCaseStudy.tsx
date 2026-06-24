@@ -337,7 +337,11 @@ export default function TezauraCaseStudy({ onClose }: Props) {
   useEffect(() => {
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    return () => { document.body.style.overflow = prev; };
+    document.documentElement.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+      document.documentElement.style.overflow = "";
+    };
   }, []);
 
   // Escape key to close
@@ -353,6 +357,7 @@ export default function TezauraCaseStudy({ onClose }: Props) {
       animate={{ y: "0%" }}
       exit={{ y: "100%" }}
       transition={{ duration: 0.72, ease: [0.16, 1, 0.3, 1] }}
+      onWheel={(e) => e.stopPropagation()}   // ← ADD THIS LINE
       style={{
         position: "fixed",
         inset: 0,
