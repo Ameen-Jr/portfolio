@@ -161,7 +161,7 @@ export default function ContactSection() {
             style={{ fontFamily: "var(--font-space)" }}
             className="text-[10px] text-[#999] mt-4 tracking-widest uppercase"
           >
-            © 2025 Ameen Jawhar
+            © 2026 Ameen Jawhar
           </p>
         </div>
 
@@ -200,7 +200,7 @@ export default function ContactSection() {
           <div className="flex flex-col gap-2">
             {[
               { label: "GitHub", href: "https://github.com/Ameen-Jr" },
-              { label: "LinkedIn", href: "www.linkedin.com/in/ameen-jawhar" },
+              { label: "LinkedIn", href: "https://www.linkedin.com/in/ameen-jawhar/" },
               { label: "Twitter / X", href: "#" },
             ].map((l) => (
               <a
