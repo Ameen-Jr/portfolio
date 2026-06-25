@@ -57,7 +57,7 @@ const modules = [
     num: "04",
     title: "Fee Collection & Mid-Year Rate Engine",
     body: "Month-by-month payment grid with proportional fill animations. Supports two fee rates per class with a configurable switch month — earlier months bill at the legacy rate, later at the new rate. Exemption badges for waived months.",
-    accent: false,
+    accent: true,
   },
   {
     num: "05",
@@ -69,7 +69,7 @@ const modules = [
     num: "06",
     title: "Analytics Dashboard",
     body: "Zero-dependency custom SVG scatter plot mapping attendance % vs average marks %. Adjustable threshold sliders classify students into At Risk, Needs Attention, and Performing Well zones. Fullscreen mode with drill-down side panel.",
-    accent: false,
+    accent: true,
   },
   {
     num: "07",
@@ -81,7 +81,7 @@ const modules = [
     num: "08",
     title: "Library + Top Readers Hall of Fame",
     body: "Book issue and return workflow with autocomplete student search, accession tracking, and full history. Top 10 readers by academic year calculated automatically with gold, silver, and bronze rank badges.",
-    accent: false,
+    accent: true,
   },
   {
     num: "09",
@@ -93,7 +93,19 @@ const modules = [
     num: "10",
     title: "Google Drive OAuth2 Auto-Backup",
     body: "OAuth2 Desktop App flow with token.json persistence. On each startup, if 7+ days have elapsed, a ZIP of the SQLite DB and photos folder is uploaded to a configured Drive folder. Backups older than 90 days are auto-deleted.",
+    accent: true,
+  },
+  {
+    num: "11",
+    title: "First-Launch Lifecycle Wizard",
+    body: "Automated onboarding engine triggered dynamically via a setup_completed database state flag. Sequences core environment initializations, local configuration matrices, and regional setting injections securely on startup.",
     accent: false,
+  },
+  {
+    num: "12",
+    title: "Secure Identity & Session Control",
+    body: "Full-viewport login canvas backed by client-side SHA-256 password hashing. Monitors system integrity via intensive 500ms backend health polling alongside cross-origin iframe sandboxing for Lottie assets.",
+    accent: true,
   },
 ];
 
