@@ -2,6 +2,7 @@
 
 import { useRef, useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import MagicBento from "./MagicBento";
 
 /* ── Types ── */
 interface Props {
@@ -476,27 +477,25 @@ export default function TezauraCaseStudy({ onClose }: Props) {
             LOGISTICS
           </h1>
 
-          {/* Stat row */}
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
-            {[
-              ["10+", "Modules"],
-              ["Local-First", "Architecture"],
-              ["React 19 + FastAPI", "Tech Stack"],
-              ["Tauri 2 (Rust)", "Desktop Shell"],
-              ["Live", "Deployed"],
-            ].map(([val, label]) => (
-              <div key={label} style={{
-                border: "1px solid #2a2a2a",
-                padding: "12px 20px",
-                display: "flex",
-                flexDirection: "column",
-                gap: 4,
-              }}>
-                <span style={{ fontFamily: "var(--font-bebas)", fontSize: "1.3rem", color: "#f0f0f0", letterSpacing: "0.05em" }}>{val}</span>
-                <span style={{ fontFamily: "var(--font-space)", fontSize: 9, color: "#6b6b6b", letterSpacing: "0.2em", textTransform: "uppercase" }}>{label}</span>
-              </div>
-            ))}
-          </div>
+          {/* Stat row — MagicBento */}
+          <MagicBento
+            cards={[
+              { val: "10+",              label: "Modules" },
+              { val: "Local-First",      label: "Architecture" },
+              { val: "React 19+FastAPI", label: "Tech Stack" },
+              { val: "Tauri 2 (Rust)",  label: "Desktop Shell" },
+              { val: "Live",             label: "Deployed" },
+            ]}
+            enableStars={true}
+            enableSpotlight={true}
+            enableBorderGlow={true}
+            enableTilt={false}
+            enableMagnetism={true}
+            clickEffect={true}
+            spotlightRadius={420}
+            particleCount={10}
+            glowColor="124, 164, 141"
+          />
         </motion.div>
       </section>
 
