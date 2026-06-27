@@ -63,18 +63,21 @@ function NavMenuItem({ item, index, hoveredIndex, setHovered, onNavigate }: {
   ));
 
   return (
-    <div className="relative border-t border-[#d0d0d0] overflow-hidden"
-      onMouseEnter={() => setHovered(index)} onMouseLeave={() => setHovered(null)}>
-      <button onClick={() => onNavigate(item.id)}
-        className="flex items-start gap-4 py-5 md:py-7 w-full cursor-none relative z-10 px-10 md:px-20">
+    <div
+      className="relative border-t border-[#d0d0d0] overflow-hidden cursor-none"
+      onMouseEnter={() => setHovered(index)}
+      onMouseLeave={() => setHovered(null)}
+      onClick={() => onNavigate(item.id)}
+    >
+      <div className="flex items-start gap-4 py-5 md:py-7 w-full relative z-10 px-10 md:px-20">
         <span style={{ fontFamily: "var(--font-space)" }} className="text-[#888] text-xs mt-3 md:mt-5 leading-none shrink-0">{item.num}</span>
         <span style={{ fontFamily: "var(--font-bebas)" }} className="text-[14vw] md:text-[11vw] leading-none text-[#111] uppercase">{item.label}</span>
-      </button>
+      </div>
       <AnimatePresence>
         {isHovered && (
           <motion.div initial={{ y: "102%" }} animate={{ y: "0%" }} exit={{ y: "102%" }}
             transition={{ duration: 0.42, ease: [0.76, 0, 0.24, 1] }}
-            className="absolute inset-0 bg-[#7ca48d] flex items-center overflow-hidden z-20">
+            className="absolute inset-0 bg-[#7ca48d] flex items-center overflow-hidden z-20 pointer-events-none">
             <div className="menu-marquee-track flex items-center">{unit}{unit}</div>
           </motion.div>
         )}
@@ -104,7 +107,10 @@ export default function NavBar() {
 
   const scrollTo = (id: string) => {
     setOpen(false);
-    setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }), 500);
+    // Wait for menu close animation (500ms), then dispatch to SmoothScrollProvider
+    setTimeout(() => {
+      window.dispatchEvent(new CustomEvent("scroll-to-section", { detail: id }));
+    }, 520);
   };
 
   /* Logo is dark when: menu open (white overlay) OR scrolled to light section */

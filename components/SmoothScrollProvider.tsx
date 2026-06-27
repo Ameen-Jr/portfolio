@@ -22,6 +22,14 @@ export default function SmoothScrollProvider({
 
     lenisRef.current = lenis;
 
+    // Listen for scroll-to-section events fired by NavBar
+    const onScrollTo = (e: Event) => {
+      const id = (e as CustomEvent<string>).detail;
+      const el = document.getElementById(id);
+      if (el) lenis.scrollTo(el, { duration: 1.4 });
+    };
+    window.addEventListener("scroll-to-section", onScrollTo);
+
     let rafId: number;
     function raf(time: number) {
       lenis.raf(time);
@@ -30,6 +38,7 @@ export default function SmoothScrollProvider({
     rafId = requestAnimationFrame(raf);
 
     return () => {
+      window.removeEventListener("scroll-to-section", onScrollTo);
       cancelAnimationFrame(rafId);
       lenis.destroy();
     };
