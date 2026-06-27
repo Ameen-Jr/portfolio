@@ -32,9 +32,9 @@ function AJLogo() {
 }
 
 const navItems = [
-  { num: "01", label: "About",    id: "about",    marqueeText: "MY JOURNEY"  },
+  { num: "01", label: "About", id: "about", marqueeText: "MY JOURNEY" },
   { num: "02", label: "Projects", id: "projects", marqueeText: "RECENT WORK" },
-  { num: "03", label: "Contact",  id: "contact",  marqueeText: "LET'S TALK"  },
+  { num: "03", label: "Contact", id: "contact", marqueeText: "LET'S TALK" },
 ];
 
 function ArrowCircle() {
@@ -170,7 +170,7 @@ export default function NavBar() {
               <div className="border-t border-[#d0d0d0]" />
             </div>
             <div className="px-10 md:px-20 py-8 border-t border-[#d0d0d0] flex justify-between items-center">
-              <p style={{ fontFamily: "var(--font-space)" }} className="text-[11px] text-[#888] tracking-widest uppercase">© 2025 Ameen Jawhar</p>
+              <p style={{ fontFamily: "var(--font-space)" }} className="text-[11px] text-[#888] tracking-widest uppercase">© 2026 Ameen Jawhar</p>
               <p style={{ fontFamily: "var(--font-space)" }} className="text-[11px] text-[#888] tracking-widest uppercase">Kerala, India</p>
             </div>
           </motion.div>

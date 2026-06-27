@@ -209,7 +209,7 @@ export default function FeaturedWork({ onCaseStudyOpen }: { onCaseStudyOpen: () 
                 style={{ fontFamily: "var(--font-space)" }}
                 className="text-[10px] tracking-[0.25em] text-[#3a3a3a] uppercase"
               >
-                Project 01 / 2025
+                Project 01 / 2026
               </span>
 
               <motion.h4

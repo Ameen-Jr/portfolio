@@ -163,7 +163,7 @@ export default function HeroSection({ ready = false }: { ready?: boolean }) {
 
       {/* ── Stat row ── */}
       <div className="relative z-10 w-full border-b border-[#2a2a2a] mt-[72px] grid grid-cols-3 text-center">
-        {["Btech CSE", "Based in Kerala, IN", "Open to Work"].map((t, i) => (
+        {["DESIGN ENGINEER", "Based in Kerala, IN", "Open to Work"].map((t, i) => (
           <div key={i} className={`py-3 ${i < 2 ? "border-r border-[#2a2a2a]" : ""}`}>
             <span style={{ fontFamily: "var(--font-space)" }} className="text-[10px] tracking-[0.2em] text-[#6b6b6b] uppercase">
               {t}
@@ -238,7 +238,7 @@ export default function HeroSection({ ready = false }: { ready?: boolean }) {
             System
           </p>
           <p style={{ fontFamily: "var(--font-space)" }} className="text-[11px] text-[#888] leading-relaxed">
-            [ SYSTEM: BTECH CSE<br />// BASED IN KERALA, IN ]
+            [ PRODUCT DEVELOPMENT<br />// BASED IN KERALA, IN ]
           </p>
         </div>
         <div className="border-r border-[#2a2a2a] p-6">

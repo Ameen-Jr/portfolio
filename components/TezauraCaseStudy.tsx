@@ -480,11 +480,11 @@ export default function TezauraCaseStudy({ onClose }: Props) {
           {/* Stat row — MagicBento */}
           <MagicBento
             cards={[
-              { val: "10+",              label: "Modules" },
-              { val: "Local-First",      label: "Architecture" },
+              { val: "10+", label: "Modules" },
+              { val: "Local-First", label: "Architecture" },
               { val: "React 19+FastAPI", label: "Tech Stack" },
-              { val: "Tauri 2 (Rust)",  label: "Desktop Shell" },
-              { val: "Live",             label: "Deployed" },
+              { val: "Tauri 2 (Rust)", label: "Desktop Shell" },
+              { val: "Live", label: "Deployed" },
             ]}
             enableStars={true}
             enableSpotlight={true}
@@ -526,7 +526,7 @@ export default function TezauraCaseStudy({ onClose }: Props) {
       </section>
 
       {/* ── Modules ── */}
-      <SectionLabel label="Feature Modules" count="10 Systems" />
+      <SectionLabel label="Feature Modules" count="12 Systems" />
       <section style={{
         display: "grid",
         gridTemplateColumns: "repeat(3, 1fr)",
@@ -684,11 +684,11 @@ export default function TezauraCaseStudy({ onClose }: Props) {
           <span style={{ color: "#7ca48d" }}>REAL WORLD.</span>
         </h2>
         <p style={{ fontFamily: "var(--font-inter)", fontSize: 13, color: "#555", maxWidth: 440, lineHeight: 1.7, marginTop: 8 }}>
-          Tezaura runs live at the centre, managing 30+ students across 3 classes, with daily attendance, monthly fee collection, and automated cloud backups — on a single laptop, offline.
+          Tezaura runs live at the centre, managing 250+ students across 3 classes, with daily attendance, monthly fee collection, and automated cloud backups — on a single laptop, offline.
         </p>
         <div style={{ display: "flex", gap: 16, flexWrap: "wrap", justifyContent: "center", marginTop: 16 }}>
           <a
-            href="https://github.com/Ameen-Jr"
+            href="https://github.com/Ameen-Jr/tezaura"
             target="_blank"
             rel="noopener noreferrer"
             style={{
