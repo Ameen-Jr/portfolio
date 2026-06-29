@@ -35,8 +35,8 @@ class ThreeApp {
   scene: i;
   renderer!: s;
   size = { width: 0, height: 0, wWidth: 0, wHeight: 0, ratio: 0, pixelRatio: 0 };
-  onBeforeRender: (clk: { elapsed: number; delta: number }) => void = () => {};
-  onAfterResize: (size: typeof this.size) => void = () => {};
+  onBeforeRender: (clk: { elapsed: number; delta: number }) => void = () => { };
+  onAfterResize: (size: typeof this.size) => void = () => { };
   render: () => void;
   isDisposed = false;
 
@@ -329,7 +329,7 @@ class BallMesh extends (d as any) {
 
   constructor(renderer: s, cfg: any) {
     const merged = { ...DEFAULT_CFG, ...cfg };
-    const envTex = new p(renderer, 0.04).fromScene(new RoomEnvironment()).texture;
+    const envTex = new p(renderer).fromScene(new RoomEnvironment()).texture;
     const mat = new SubsurfaceMaterial({ envMap: envTex, ...merged.materialParams });
     (mat as any).envMapRotation.x = -Math.PI / 2;
     super(new g(), mat, merged.count);
@@ -378,7 +378,7 @@ function createBallpit(canvas: HTMLCanvasElement, cfg: any) {
   const app = new ThreeApp({ canvas, size: "parent" });
 
   // WebGL context failed to initialize — bail silently
-  if (app.isDisposed || !app.renderer) return { dispose() {} };
+  if (app.isDisposed || !app.renderer) return { dispose() { } };
 
   app.renderer.toneMapping = v;
   app.camera.position.set(0, 0, 20);
@@ -387,9 +387,9 @@ function createBallpit(canvas: HTMLCanvasElement, cfg: any) {
 
   let mesh: BallMesh;
   function init(config: any) {
-    if (mesh) { app.clear(); app.scene.remove(mesh); }
+    if (mesh) { app.clear(); app.scene.remove(mesh as any); }
     mesh = new BallMesh(app.renderer, config);
-    app.scene.add(mesh);
+    app.scene.add(mesh as any);
   }
   init(cfg);
 
