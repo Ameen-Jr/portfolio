@@ -2,6 +2,10 @@
 
 import { useRef, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
+import dynamic from "next/dynamic";
+
+// Three.js / WebGL must never execute server-side — ssr: false is mandatory
+const Ballpit = dynamic(() => import("./Ballpit"), { ssr: false });
 
 /* ─── Contact section: mirrors chkstepan.com's minimal CTA contact layout ─── */
 /* Reference: centered large CTA headline → pill button → bottom info grid      */
@@ -74,6 +78,27 @@ export default function ContactSection() {
 
       {/* ── CTA BODY ── */}
       <div className="relative z-10 px-6 md:px-16 lg:px-24 pt-24 pb-16 flex flex-col items-center text-center">
+
+        {/* Ballpit background — sits behind all content */}
+        <div
+          aria-hidden
+          className="absolute inset-0 pointer-events-none"
+          style={{ zIndex: 0 }}
+        >
+          <Ballpit
+            count={80}
+            gravity={0.55}
+            friction={0.9975}
+            wallBounce={0.95}
+            followCursor={true}
+            colors={[0xd0d0d0, 0xb8b8b8, 0x999999, 0xe8e8e8]}
+            ambientColor={0xffffff}
+            ambientIntensity={0.8}
+            lightIntensity={180}
+            minSize={0.4}
+            maxSize={0.9}
+          />
+        </div>
 
         {/* Grid lines (decorative, like reference) */}
         <div
