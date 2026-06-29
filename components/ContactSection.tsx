@@ -90,11 +90,11 @@ export default function ContactSection() {
             gravity={0.55}
             friction={0.9975}
             wallBounce={0.95}
-            followCursor={true}
-            colors={[0xd0d0d0, 0xb8b8b8, 0x999999, 0xe8e8e8]}
+            followCursor={false}
+            colors={[0x111111, 0x0d0d0d, 0x7ca48d, 0x2d4a3e, 0x1a1a1a, 0x4a7c6f]}
             ambientColor={0xffffff}
-            ambientIntensity={0.8}
-            lightIntensity={180}
+            ambientIntensity={1.2}
+            lightIntensity={260}
             minSize={0.4}
             maxSize={0.9}
           />
@@ -107,7 +107,7 @@ export default function ContactSection() {
           style={{
             backgroundImage: "linear-gradient(#e0e0e0 1px, transparent 1px)",
             backgroundSize: "100% 80px",
-            opacity: 0.6,
+            opacity: 0,
           }}
         />
 
